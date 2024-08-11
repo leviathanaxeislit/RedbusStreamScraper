@@ -14,8 +14,13 @@ class RedBusData:
             host=DB_HOST_NAME ,       
             user= DB_USER_NAME ,      
             password=DB_PASSWORD  , 
-            database=database   
+            database=database ,
+            port=3306,
+            connect_timeout=20   
         )
+        if not self.connection:
+            return False
+        return True
     
     def execute_query(self,query, fetch=False):
         try:
@@ -38,10 +43,19 @@ class RedBusData:
         self.execute_query(query)
 
     def insert_data(self, table_name, columns, values):
+        print(values)
+        col = ','.join(columns)
+        val = ','.join(str(element) for element in values)
+        parts = val.split(',')
+        formatted_val = f"'{parts[0]}','{parts[1]}'"
+        print("VAL" ,formatted_val)
         query = f"""
-        INSERT INTO {table_name} ({columns})
-        VALUES ({values});
+        INSERT INTO {table_name} ({col})
+        VALUES {values};
         """
+        print("QUERY" ,query)
+        cursor = self.connection.cursor()
+        #cursor.execute(query,values)
         self.execute_query(query)
 
     def fetch_data(self, query):
