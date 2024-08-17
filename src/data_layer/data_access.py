@@ -1,4 +1,5 @@
 from src.redbus_constants import DB_HOST_NAME ,  DB_USER_NAME ,DB_PASSWORD
+from src.logger import logging
 import pymysql
 class RedBusData:
     '''
@@ -10,6 +11,7 @@ class RedBusData:
     def __init__(self):
         self.connection =None
     def create_connection(self , database):
+        logging.info("Creating DB Connection")
         self.connection= pymysql.connect(
             host=DB_HOST_NAME ,       
             user= DB_USER_NAME ,      
@@ -35,12 +37,18 @@ class RedBusData:
             self.connection.rollback()
 
     def create_table_if_not_exists(self, table_name, table_schema):
-        query = f"""
-        CREATE TABLE IF NOT EXISTS {table_name} (
+       
+        drop_query = f"DROP TABLE IF EXISTS {table_name};"
+        self.execute_query(drop_query)
+        
+        
+        create_query = f"""
+        CREATE TABLE {table_name} (
             {table_schema}
         );
         """
-        self.execute_query(query)
+        self.execute_query(create_query)
+
 
     def insert_data(self, table_name, columns, values):
         print(values)

@@ -1,5 +1,6 @@
 import time
 import pandas as pd
+from src.logger import logging
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -26,6 +27,7 @@ class WebScrap:
         '''
         function to extract all rtc operators
         '''
+        logging.info("Extraction started for all rtc operators")
         driver = self.initialize_driver()
         self.load_page(driver , self.source_link)
 
@@ -120,6 +122,7 @@ class WebScrap:
 
     # Function to scrape all pages
     def scrape_all_pages(self , operator):
+        logging.info("started extraction for each rtc operators")
         url = operator.get('Link')
         for page in range(1, 3):  # There are 2 pages
             try:
