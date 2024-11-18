@@ -1,7 +1,7 @@
 DB_HOST_NAME = "sql12.freesqldatabase.com"
-DB_USER_NAME = "sql12725153"
-DB_PASSWORD = "7ktkxKAi64"
-DBNAME = "sql12725153"
+DB_USER_NAME = "sql12745513"
+DB_PASSWORD = "SDpP5Pzlqp"
+DBNAME = "sql12745513"
 RED_BUS_URL = "https://www.redbus.in/online-booking/rtc-directory"
 
 DB_SCHEMA = """
